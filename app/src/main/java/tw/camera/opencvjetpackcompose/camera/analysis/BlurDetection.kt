@@ -1,4 +1,4 @@
-package tw.camera.opencvjetpackcompose.camera.analsis
+package tw.camera.opencvjetpackcompose.camera.analysis
 
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
@@ -9,15 +9,15 @@ import org.opencv.imgproc.Imgproc
 import java.nio.ByteBuffer
 
 
-typealias BlurListener = (blur: Double) -> Unit
+typealias Listener = (blur: Double) -> Unit
 
-class BlurDetection(private val listener: BlurListener) : ImageAnalysis.Analyzer {
+
+class BlurDetection(private val listener: Listener) : ImageAnalysis.Analyzer {
 
     private external fun blurDetectionOpenCV(matAddrInput: Long): Double
     private external fun convertRGBtoGray(matAddrInput: Long, matAddrResult: Long)
 
     override fun analyze(image: ImageProxy) {
-
         matInput = convertYUV2RGB(image)
         matResult = Mat(matInput.rows(), matInput.cols(), matInput.type())
         convertRGBtoGray(matInput.nativeObjAddr, matResult.nativeObjAddr)

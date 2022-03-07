@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import tw.camera.opencvjetpackcompose.camera.ui.BlurDetectionText
 import tw.camera.opencvjetpackcompose.camera.ui.CameraPreview
+import tw.camera.opencvjetpackcompose.camera.ui.LuminosityAnalyzerText
 import tw.camera.opencvjetpackcompose.utils.Permission
 
 
@@ -63,14 +64,16 @@ fun CameraModule(
             previewUseCase = it
         }
     )
-    BlurDetectionText(
-        modifier = Modifier
-            .width(200.dp)
-            .padding(16.dp),
-        onUseCase = {
-            imageAnalysisUseCase = it
-        }
-    )
+    Column {
+        BlurDetectionText(
+            modifier = Modifier
+                .width(200.dp)
+                .padding(16.dp),
+            onUseCase = {
+                imageAnalysisUseCase = it
+            }
+        )
+    }
 
     LaunchedEffect(previewUseCase) {
         val cameraProvider = context.getCameraProvider()

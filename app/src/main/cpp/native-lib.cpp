@@ -7,7 +7,7 @@ using namespace cv;
 
 extern "C"
 JNIEXPORT jdouble JNICALL
-Java_tw_camera_opencvjetpackcompose_camera_analsis_BlurDetection_blurDetectionOpenCV(JNIEnv *env,
+Java_tw_camera_opencvjetpackcompose_camera_analysis_BlurDetection_blurDetectionOpenCV(JNIEnv *env,
                                                                                      jobject thiz,
                                                                                      jlong mat_addr_input) {
     Mat &frame = *(Mat *)mat_addr_input;
@@ -69,7 +69,7 @@ Java_tw_camera_opencvjetpackcompose_camera_analsis_BlurDetection_blurDetectionOp
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_tw_camera_opencvjetpackcompose_camera_analsis_BlurDetection_convertRGBtoGray(JNIEnv *env,
+Java_tw_camera_opencvjetpackcompose_camera_analysis_BlurDetection_convertRGBtoGray(JNIEnv *env,
                                                                                   jobject thiz,
                                                                                   jlong mat_addr_input,
                                                                                   jlong mat_addr_result) {
