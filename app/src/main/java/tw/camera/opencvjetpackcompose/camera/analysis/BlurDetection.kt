@@ -8,11 +8,9 @@ import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
 import java.nio.ByteBuffer
 
+typealias BlurListener = (blur: Double) -> Unit
 
-typealias Listener = (blur: Double) -> Unit
-
-
-class BlurDetection(private val listener: Listener) : ImageAnalysis.Analyzer {
+class BlurDetection(private val listener: BlurListener) : ImageAnalysis.Analyzer {
 
     private external fun blurDetectionOpenCV(matAddrInput: Long): Double
     private external fun convertRGBtoGray(matAddrInput: Long, matAddrResult: Long)

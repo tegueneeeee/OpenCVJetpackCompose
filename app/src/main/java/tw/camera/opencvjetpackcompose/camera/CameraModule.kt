@@ -9,12 +9,10 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.core.UseCase
-import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -22,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import tw.camera.opencvjetpackcompose.camera.ui.BlurDetectionText
 import tw.camera.opencvjetpackcompose.camera.ui.CameraPreview
-import tw.camera.opencvjetpackcompose.camera.ui.LuminosityAnalyzerText
 import tw.camera.opencvjetpackcompose.utils.Permission
 
 

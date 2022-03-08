@@ -17,14 +17,9 @@ fun BlurDetectionText(
     onUseCase: (UseCase) -> Unit = { }
 ) {
     var blurScore by remember { mutableStateOf("") }
-    var luminosity by remember { mutableStateOf("") }
     val context = LocalContext.current
     Text(
         text = blurScore,
-        modifier = modifier
-    )
-    Text(
-        text = luminosity,
         modifier = modifier
     )
     onUseCase(
@@ -37,12 +32,4 @@ fun BlurDetectionText(
             }
     )
 }
-
-private fun ByteBuffer.toByteArray(): ByteArray {
-    rewind()
-    val data = ByteArray(remaining())
-    get(data)
-    return data
-}
-
 
