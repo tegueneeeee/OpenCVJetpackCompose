@@ -4,10 +4,10 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 
-typealias GyroListener = (gyro: DoubleArray) -> Unit
+typealias GyroListener = (gyro: String) -> Unit
 
 class GyroScope(private val listener: GyroListener): SensorEventListener {
-    private val gyroArray = DoubleArray(4) { 0.0 }
+    private var gyroString = ""
     private var pitch = 0.0
     private var roll = 0.0
     private var yaw = 0.0
@@ -28,12 +28,13 @@ class GyroScope(private val listener: GyroListener): SensorEventListener {
             roll += gyroX * dt
             yaw += gyroZ * dt
 
-            gyroArray[0] = pitch * RAD2DGR
-            gyroArray[1] = roll * RAD2DGR
-            gyroArray[3] = yaw * RAD2DGR
-            gyroArray[4] = dt
+            gyroString = "Pitch:${String.format("%.2f", pitch * RAD2DGR)} " +
+                    "\nRoll:${String.format("%.2f", roll * RAD2DGR)} " +
+                    "\nYaw: ${String.format("%.2f", yaw * RAD2DGR)}"
 
-            listener(gyroArray)
+//            gyroArray[3] = String.format("%.4f", dt)
+
+            listener(gyroString)
         }
     }
 

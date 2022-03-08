@@ -15,14 +15,15 @@ import tw.camera.opencvjetpackcompose.camera.analysis.GyroScope
 fun GyroScopeText(
     modifier: Modifier = Modifier
 ) {
-    var gyroText by remember { mutableStateOf("") }
+    var gyroValue by remember { mutableStateOf("") }
     val context = LocalContext.current
     val sensorManager: SensorManager? = getSystemService(context, SensorManager::class.java)
     val gyroSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
     Text(
-        text = "roll",
+        text = gyroValue,
         modifier = modifier
     )
-    sensorManager?.registerListener(GyroScope, gyroSensor, SensorManager.SENSOR_DELAY_UI)
-
+    sensorManager?.registerListener(GyroScope{ gyro ->
+        gyroValue = gyro
+    }, gyroSensor, SensorManager.SENSOR_DELAY_GAME)
 }
