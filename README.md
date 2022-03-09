@@ -14,6 +14,7 @@ App can be quantifying blur, so you can know which smartphone camera is sharpnes
 
 - **CameraX**Usecase (Preview, ImageAnalysis, Capture)
 - **OpenCv** blurDetection FFT
+- **SensorManager** GyroScope Sensor
 
 # 🛠 Tech Stack
 
