@@ -12,21 +12,23 @@ import androidx.activity.compose.setContent
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.core.UseCase
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
+import coil.compose.rememberAsyncImagePainter
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import tw.camera.opencvjetpackcompose.camera.CameraModule
+import tw.camera.opencvjetpackcompose.camera.gallery.GallerySelect
 import tw.camera.opencvjetpackcompose.camera.ui.CameraPreview
 import tw.camera.opencvjetpackcompose.camera.getCameraProvider
 import tw.camera.opencvjetpackcompose.ui.theme.OpenCVJetpackComposeTheme
@@ -54,10 +56,15 @@ class MainActivity : ComponentActivity() {
         private const val TAG = "MainActivity"
     }
 }
+val EMPTY_IMAGE_URI: Uri = Uri.parse("file//dev/null")
 
 @ExperimentalPermissionsApi
 @Composable
 fun MainContext(modifier: Modifier = Modifier) {
-    CameraModule(modifier)
+    Box(modifier = modifier) {
+        CameraModule(
+            modifier = modifier
+        )
+    }
 }
 
