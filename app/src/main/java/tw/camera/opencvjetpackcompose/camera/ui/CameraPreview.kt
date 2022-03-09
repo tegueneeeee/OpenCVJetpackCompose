@@ -1,7 +1,10 @@
 package tw.camera.opencvjetpackcompose.camera.ui
 
 
+import android.util.Size
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.camera.core.AspectRatio.RATIO_4_3
 import androidx.camera.core.Preview
 import androidx.camera.core.UseCase
 import androidx.camera.view.PreviewView
@@ -12,7 +15,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 @Composable
 fun CameraPreview(
     modifier: Modifier = Modifier,
-    scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FILL_CENTER,
+    scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FIT_CENTER,
     onUseCase: (UseCase) -> Unit = { }
 ) {
     AndroidView(
@@ -27,11 +30,15 @@ fun CameraPreview(
             }
             onUseCase(
                 Preview.Builder()
+                    .apply {
+                        setTargetAspectRatio(RATIO_4_3)
+                    }
                     .build()
                     .also {
                         it.setSurfaceProvider(previewView.surfaceProvider)
                     }
             )
+
             previewView
         }
     )

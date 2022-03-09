@@ -55,9 +55,6 @@ suspend fun ImageCapture.takePicture(context: Context) {
     }
 
 
-
-//    content://media/external/images/media/1203
-
     return suspendCoroutine { continuation ->
         val outputOptions = ImageCapture.OutputFileOptions
             .Builder(context.contentResolver, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)

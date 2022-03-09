@@ -5,13 +5,16 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import android.util.Log
+import android.util.Size
 import androidx.camera.core.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
@@ -50,7 +53,6 @@ fun CameraModule(
             }
         },
     )
-
     val lifecycleOwner = LocalLifecycleOwner.current
     var previewUseCase by remember { mutableStateOf<UseCase>(Preview.Builder().build()) }
     var imageAnalysisUseCase by remember { mutableStateOf<UseCase>(ImageAnalysis.Builder().build())}
@@ -59,6 +61,10 @@ fun CameraModule(
     val imageCaptureUseCase by remember {
         mutableStateOf(
             ImageCapture.Builder()
+                .apply {
+                    setJpegQuality(95)
+                    setTargetResolution(Size(2252, 4000))
+                }
                 .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
                 .build()
         )
@@ -71,35 +77,22 @@ fun CameraModule(
                 previewUseCase = it
             }
         )
-        Row {
-            BlurDetectionText(
-                modifier = Modifier
-                    .width(290.dp)
-                    .padding(16.dp),
-                onUseCase = {
-                    imageAnalysisUseCase = it
-                }
-            )
-            //        GyroScopeText(
-            //            modifier = Modifier
-            //                .width(200.dp)
-            //                .padding(16.dp),
-            //        )
-            ImageCaptureButton(
-                modifier = Modifier
-                    .size(100.dp)
-                    .padding(16.dp),
-                onClick = {
-
-                }
-            )
-        }
+        BlurDetectionText(
+            modifier = Modifier
+                .width(290.dp)
+                .padding(16.dp)
+                .background(Color.White),
+            onUseCase = {
+                imageAnalysisUseCase = it
+            }
+        )
         ImageCaptureButton(
             modifier = Modifier
                 .size(100.dp)
                 .padding(16.dp)
                 .align(Alignment.BottomCenter),
             onClick = {
+                Log.d("CameraModule", "ImageCaptureButton onClick")
                 coroutineScope.launch {
                     imageCaptureUseCase.takePicture(context)
                 }
