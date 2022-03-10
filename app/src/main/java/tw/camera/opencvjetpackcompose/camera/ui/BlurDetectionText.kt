@@ -1,5 +1,6 @@
 package tw.camera.opencvjetpackcompose.camera.ui
 
+import android.util.Size
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.UseCase
 import androidx.compose.material.Text
@@ -8,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import tw.camera.opencvjetpackcompose.camera.analysis.BlurDetection
 import tw.camera.opencvjetpackcompose.camera.executor
-import java.nio.ByteBuffer
 
 
 @Composable
@@ -24,6 +24,9 @@ fun BlurDetectionText(
     )
     onUseCase(
         ImageAnalysis.Builder()
+            .apply {
+                setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
+            }
             .build()
             .also {
                 it.setAnalyzer(context.executor, BlurDetection { blur ->

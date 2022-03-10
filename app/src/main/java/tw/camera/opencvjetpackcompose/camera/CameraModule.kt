@@ -7,6 +7,8 @@ import android.provider.Settings
 import android.util.Log
 import android.util.Size
 import androidx.camera.core.*
+import androidx.camera.core.AspectRatio.RATIO_4_3
+import androidx.camera.core.ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -63,9 +65,10 @@ fun CameraModule(
             ImageCapture.Builder()
                 .apply {
                     setJpegQuality(95)
-                    setTargetResolution(Size(2252, 4000))
+                    setTargetAspectRatio(RATIO_4_3)
+//                    setTargetResolution(Size(3120, 4160))  //XperiaAce2
+                    setCaptureMode(CAPTURE_MODE_MAXIMIZE_QUALITY)
                 }
-                .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
                 .build()
         )
     }

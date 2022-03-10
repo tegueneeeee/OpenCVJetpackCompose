@@ -1,9 +1,12 @@
 package tw.camera.opencvjetpackcompose.camera.analysis
 
+import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import org.opencv.core.Core
 import org.opencv.core.CvType
+import org.opencv.core.CvType.CV_8UC1
+import org.opencv.core.CvType.CV_8UC4
 import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
 import java.nio.ByteBuffer
@@ -16,10 +19,16 @@ class BlurDetection(private val listener: BlurListener) : ImageAnalysis.Analyzer
     private external fun convertRGBtoGray(matAddrInput: Long, matAddrResult: Long)
 
     override fun analyze(image: ImageProxy) {
-        matInput = convertYUV2RGB(image)
+        matInput = Mat(image.height, image.width, CV_8UC4, image.planes[0].buffer)
         matResult = Mat(matInput.rows(), matInput.cols(), matInput.type())
         convertRGBtoGray(matInput.nativeObjAddr, matResult.nativeObjAddr)
         listener(blurDetectionOpenCV(matResult.nativeObjAddr))
+
+        Log.i(TAG, "[analyze] width = ${image.width} " +
+                "height = ${image.height} " +
+                "Rotation = ${image.imageInfo.rotationDegrees}")
+        Log.i(TAG, "[analyze] mat width = ${matInput.cols()}" +
+                " mat height = ${matInput.rows()} mat type ${matInput.type()}")
 
         image.close()
     }
@@ -27,6 +36,7 @@ class BlurDetection(private val listener: BlurListener) : ImageAnalysis.Analyzer
     companion object {
         private lateinit var matInput: Mat
         private lateinit var matResult: Mat
+        private const val TAG = "BlurDetection"
 
         init {
             System.loadLibrary("opencv_java4")
@@ -59,3 +69,4 @@ fun convertYUV2RGB(image: ImageProxy): Mat {
     Core.rotate(rgb, rgb, Core.ROTATE_90_CLOCKWISE)
     return rgb
 }
+

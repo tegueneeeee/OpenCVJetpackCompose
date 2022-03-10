@@ -55,10 +55,14 @@ Java_tw_camera_opencvjetpackcompose_camera_analysis_BlurDetection_blurDetectionO
     Mat logFFT;
     double minVal, maxVal;
 
-    dft(orgFFT, invFFT, DFT_INVERSE | DFT_REAL_OUTPUT);
+    dft(orgFFT, invFFT, DFT_INVERSE|DFT_REAL_OUTPUT);
 
     invFFT = cv::abs(invFFT);
     cv::minMaxLoc(invFFT, &minVal, &maxVal, NULL, NULL);
+
+    if(maxVal<=0.0){
+        return 1;
+    }
 
     cv::log(invFFT, logFFT);
     logFFT *= 20;
